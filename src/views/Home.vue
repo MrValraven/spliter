@@ -27,11 +27,11 @@
         <div class="amounts">
           <div class="tipAmount">
             <h3>Tip Amount<br><span>/ person</span></h3>
-            <h2>${{tipAmount / numberOfPeople}}</h2>
+            <h2>${{(tipAmount / numberOfPeople).toFixed(2)}}</h2>
           </div>
           <div class="tipTotal">
             <h3>Total<br><span>/ person</span></h3>
-            <h2>${{total}}</h2>
+            <h2>${{total.toFixed(2)}}</h2>
           </div>
         </div>
         <button @click="reset()">RESET</button>
@@ -63,10 +63,10 @@ export default defineComponent({
   methods: {
     getTotalAmount() {
       this.bill = Math.round(this.bill *100) / 100;
-      this.tipAmount = Number((this.tipPercentage * 0.01 * this.bill).toFixed(2));
+      this.tipAmount = (this.tipPercentage * 0.01 * this.bill);
       this.totalBill = this.bill + this.tipAmount
       this.total = this.totalBill / this.numberOfPeople;
-      console.log(this.total)
+
     },
     reset() {
       this.bill = 0,
@@ -111,6 +111,7 @@ $white: hsl(0, 0%, 100%);
   width: 50%;
   padding: 20px;
   border-radius: 25px;
+   box-shadow: 0px 3px 15px $greyishCyan1;
 
 
   .calculator {
@@ -141,16 +142,24 @@ $white: hsl(0, 0%, 100%);
         margin-bottom: 15px;
         border-radius: 5px;
         border: none;
+        outline: none;
         background-color: $lightCyan;
         font-family: 'Space mono', monospace;
         font-weight: 700;
+        font-size: 24px;
         text-align: right;
-        background: url(../assets/icon-dollar.svg) no-repeat scroll 7px 7px;
+        background: url(../assets/icon-dollar.svg) no-repeat scroll 15px 15px;
+        background-color: $lightCyanNon;
+
+        &:focus-within {
+          border: 1px solid $strongCyan;
+        }
       }
 
       #peopleInput {
         margin-top: 0;
-        background: url(../assets/icon-person.svg) no-repeat scroll 7px 7px;
+        background: url(../assets/icon-person.svg) no-repeat scroll 15px 15px;
+        background-color: $lightCyanNon;
       }
     }
 
@@ -194,14 +203,21 @@ $white: hsl(0, 0%, 100%);
         }
 
         input {
-          width: 65px;
-          padding: 10px 10px 10px 10px;
+          width: 50px;
+          padding: 10px 20px 10px 20px;
           border-radius: 6px;
+          outline: none;
+          border: none;
           margin: 10px 10px 10px 0;
           font-family: 'Space mono', monospace;
           font-weight: 700;
-          font-size: 13px;
+          font-size: 14px;
           text-align: right;
+          background-color: $lightCyanNon;
+
+          &:focus-within {
+            border: 1px solid $strongCyan;
+          }
 
           &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
             text-align: center;
@@ -241,6 +257,7 @@ $white: hsl(0, 0%, 100%);
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+      width: 100%;
     }
 
     .tipAmount,
@@ -248,7 +265,7 @@ $white: hsl(0, 0%, 100%);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      
+      width: 100%;
     }
 
     h2 {
@@ -268,6 +285,7 @@ $white: hsl(0, 0%, 100%);
     button {
       border: none;
       background-color: $strongCyan;
+      color: $darkCyan;
       padding: 10px 5px 10px 5px;
       width: 90%;
       border-radius: 6px;
@@ -285,6 +303,11 @@ $white: hsl(0, 0%, 100%);
 .attribution {
   position: absolute;
   bottom: 20px;
+  color: $darkCyan;
+
+  a {
+    color: $darkCyan;
+  }
 }
 
 
